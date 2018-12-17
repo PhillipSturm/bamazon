@@ -1,15 +1,15 @@
-#Bamazon#
+# Bamazon #
 
-##ABOUT##
+## ABOUT ##
 
 Bamazon is the next big marketplace (once Amzazon goes under) that uses MySQL to display items. 
 
-##NPM Modules##
+## NPM Modules ##
 
 1. MySql
 2. Inquirer
 
-##Functionality## 
+## Functionality ## 
 
 Once you're done installing the above modules, run the program and you will see a concole log if you are connected to the database. If connected, a list of the available items will display. 
 
@@ -23,6 +23,6 @@ If your desired quantity isn't available, you have unrealilistic expectations fo
 
 ![alt text](GIFS/NotInStock.gif)
 
-##Updates That Need To Happen##
+## Updates That Need To Happen ##
 
 I wasn't able to get the stock to update after the user makes their choice, so that will need to be updated. Also having a function to restart the program instead of it ending after either a purchase or insufficiant stock would be nice. 
