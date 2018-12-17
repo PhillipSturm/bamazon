@@ -16,7 +16,7 @@ var connection = mysql.createConnection({
   });
 
 function getData() {
-    connection.query("SELECT item_id, product_name, price FROM products", function (err, res) {
+    connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         // Converting the response into a string //
         var data = JSON.stringify(res);
@@ -55,26 +55,21 @@ function bamazonStart(data) {
                 selectedItem = data[i];
             }
         }
-        // console.log(selectedItem);
+        // console.log(selectedItem.stock_quantity);
+
         
         if (userInputs.quantity <= selectedItem.stock_quantity) {
-            console.log("There is enough stock for your order!");
-
-            var newStock = "UPDATE products SET stock_quantity = "
-                + (selectedItem.stock_quantity - userInputs.quantity)
-                + " WHERE id = "
-                + userInputs.selection;
-            
-            connection.query(newStock, function (err) {
-                if (err) throw err;
-                console.log("Placed Order");
-
-                connection.end();
-                
-            });
+            console.log("Order is on the way!");
+            var price = (parseFloat(selectedItem.price));
+            var totalQuantity = userInputs.quantity;
+            var total = totalQuantity * price;
+            total.toFixed(2);
+            console.log("Your total cost is " + total);
+            connection.end();
+              
         } else {
             console.log("There is not enough in stock");
-            
+            connection.end();            
         }
    })
     
