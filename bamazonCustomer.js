@@ -1,3 +1,4 @@
+// Necessary NPM modules //
 var inquirer = require("inquirer");
 var mysql = require("mysql");
 
@@ -8,13 +9,14 @@ var connection = mysql.createConnection({
     password: "root",
     database: "bamazon"
   });
-  
+  // Connecting to the database // 
   connection.connect(function(err) {
       if (err) throw err;
     console.log("connected as id " + connection.threadId);
       getData();
   });
 
+  // Displaying all of the products on Bamazon // 
 function getData() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
@@ -28,11 +30,13 @@ function getData() {
 }
 
 function bamazonStart(data) {
+    // Getting user input for their selection //
     inquirer.prompt([
         {
             type: "list",
             message: "Which product would you like to buy?",
             name: "selection",
+            // Displaying the product names from my table //
             choices: function () {
                 var selectionArray = [];
                 for (var i = 0; i < data.length; i++) {
@@ -40,7 +44,8 @@ function bamazonStart(data) {
                 }
                 return selectionArray;
             }
-       },
+        },
+        // Getting user input for the quantity //
         {
             type: "input",
             message: "How many would you like to purchase?",
@@ -57,9 +62,13 @@ function bamazonStart(data) {
         }
         // console.log(selectedItem.stock_quantity);
 
-        
+        // This is where you put the code for updating the quantity in the database, I couldn't figure out how to do it //
+
+
         if (userInputs.quantity <= selectedItem.stock_quantity) {
             console.log("Order is on the way!");
+
+            // Calculating the total cost //
             var price = (parseFloat(selectedItem.price));
             var totalQuantity = userInputs.quantity;
             var total = totalQuantity * price;
